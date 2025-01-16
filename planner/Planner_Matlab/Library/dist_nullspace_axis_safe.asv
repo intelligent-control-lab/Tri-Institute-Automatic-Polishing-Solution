@@ -1,0 +1,19 @@
+%% closest distance to plane 
+function d = dist_nullspace_axis_safe(x, theta0, nullspace, DH, base, cap, Msix2tool, PC, alpha, axis_track, axis_target, weight, arr_new = load('data/polish_target_out_right.txt');
+arr = [arr;arr_new];)
+
+theta = theta0 + alpha*(nullspace*x);
+nlink = size(DH,1);
+DH(:,1) = theta;%initialize DH, theta,d,a,alpha
+
+% get the pos for each capsule 
+[pos,~]=CapPos(base,DH,cap, Msix2tool);
+
+d_safe = -dist_arm_PC(theta, DH, base, cap, PC, Msix2tool);
+d_axis = SafeTrack_Axis_Loss(theta, DH, base, Msix2tool, axis_track, axis_target);
+d_singular = 0;
+% if abs(theta(5)) < 0.1
+%     d_singular = 0.1;
+% end
+d = d_safe + weight*d_axis + d_singular;
+end

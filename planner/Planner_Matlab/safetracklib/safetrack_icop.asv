@@ -1,0 +1,38 @@
+%% safe tracking 
+function theta_new = safetrack_icop(theta0, robot, c1, M1)
+
+% the initial end effector pos (c0) : Cartesian 0
+[c0, rot0] = ForKine(theta0, robot.DH, robot.base, robot.Msix2target);
+M0 = axang2rotm([rot0 / norm(rot0), norm(rot0)]);
+%% objective setting
+% quadratic term  
+H = blkdiag(10, 10, 10, 1, 1, 1);
+% linear term
+f = -H'*theta0;
+
+%% inequalty constraints
+Sstack = [];
+Lstack = [];
+
+%% equality constraints 
+tracking_idx = [1,2,3,5];
+% equality constraint of XYZ pos
+Jac = Jacobi(theta0,robot.DH,robot.nlink,c0);
+Diff = Jac;
+Aeq = Diff(:);
+error_xyz = c1 - c0;
+
+M_rel = M1 * M0';
+% Extract axis-angle representation using rotm2ax
+axis_rel = rotm2axang(M_rel);
+
+% Calculate the error
+error_RxRyRz = axis_rel(1:3) * axis_rel(4);
+
+beq = [error_xyz; error_RxRyRz'] + Diff * theta0; % Talyor approximation
+% beq = error_xyz + Diff * theta0;
+
+% solve QP
+theta_new = quadprog(H,f,Lstack,Sstack,Aeq,beq,robot.lb,robot.ub);
+
+end

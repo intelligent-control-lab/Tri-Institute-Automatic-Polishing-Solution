@@ -1,0 +1,4 @@
+__pycache__/
+**/process_result/
+**/.DS_Store
+**/build/
