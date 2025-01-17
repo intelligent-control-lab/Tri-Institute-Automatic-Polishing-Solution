@@ -6,7 +6,6 @@ from detection_magic import single_weld_automatic_extract, interpolate_target_ar
 import os
 from tqdm import tqdm
 from scipy.optimize import minimize, least_squares
-from circle_fit import taubinSVD, plot_data_circle
 from scipy.spatial.transform import Rotation as R
 from matplotlib import rcParams
 import math

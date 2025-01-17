@@ -14,7 +14,6 @@ import subprocess
 import socket
 import struct
 import pickle
-from inverse_kinematics import inverse_kinematics_laser
 from icop_tracking import ICOP_EOAT_tracking, transmat2xyzRxRyRz, forward_kinematics
 import sys
 from scan_processing import savecirle, GP50_FK, sphereFit
