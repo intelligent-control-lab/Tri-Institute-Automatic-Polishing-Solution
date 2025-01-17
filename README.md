@@ -29,8 +29,8 @@ Ensure your system meets the following software and hardware requirements:
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/<your-repo>/Tri-Institute-Automatic-Polishing-Solution.git
-   cd Tri-Institute-Automatic-Polishing-Solution
+   git clone https://github.com/<your-repo>/Tri-Institute-Project.git
+   cd Tri-Institute-Automatic-Project
    ```
 2. Create a virtual environment with Python version > 3.6:
     ```bash
