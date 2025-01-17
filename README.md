@@ -46,7 +46,7 @@ Ensure your system meets the following software and hardware requirements:
 
 ### Usage
 1. Run final Tri-Insitute Demo
-    ``bash
+    ```bash
     python scan/workpiece_pipline.py
     ``` 
 
